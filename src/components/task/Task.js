@@ -1,25 +1,31 @@
-import react from "react";
-import './Tasck.css'
-
-function  Task(){
-
-const steps =["xx","yy","bb"]
-const loding = true;
-    return (<div ><div class="task">
-    <div class="title">
-        Learn Html {steps.map(e=><li>{e}</li>)}
-        {loding ? <div> lodinnnnn</div>: <p>ddd</p>}
-        {loding && <div> lodinnnnn</div>}
-    </div>
-    <div class="actions">
+import React from 'react'
+import './Task.css'
+export default function Task(props) {  
+  const renderActions = ()=>{
+    return (
+      <div className="actions">
         <span>delete</span>
-        
         <span>update</span>
-    </div>
-</div>
-   </div>
+      </div>
+    )
+  }
+    return (
+      <div className="task">
+        <div
+          className={`title ${props.type === "beginner" ? "customTask" : ""}`}
+        >
+          {props.title} ({props.duration} mn)
+        </div>
+        {props.type && (
+          <div className="sub-title">
+            {props.type} - {props.date}
+            {props.children}
+          </div>
+        )}
 
-)
-     
+        {renderActions()}
+      </div>
+    )
 }
-export default Task
+
+
