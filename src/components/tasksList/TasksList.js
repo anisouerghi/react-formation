@@ -9,10 +9,12 @@ export default function TasksList(props) {
       {props.tasks.map((task, index) => (
         // 2ème solution avec destructuring
         //{tasks.map((task, index) => (
-        <Task
+        <Task 
           key={index}
+          id={task.id}
           title={task.title}
           duration={task.duration}
+          deleteTask={props.deleteTask}
           type={task.type}
           date={task.date}
         >

@@ -1,10 +1,15 @@
 import React from 'react'
 import './Task.css'
 export default function Task(props) {  
+
+  const  handleDeleteask=()=> {
+    props.deleteTask(props.id)
+    } 
+
   const renderActions = ()=>{
     return (
       <div className="actions">
-        <span>delete</span>
+        <button onClick={handleDeleteask} className="button">Delete</button>
         <span>update</span>
       </div>
     )

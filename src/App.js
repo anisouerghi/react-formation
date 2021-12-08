@@ -2,11 +2,29 @@ import React from "react"
 import "./App.css"
 import TaskForm from "./components/taskForm/TaskForm"
 import TasksList from "./components/tasksList/TasksList"
+import { useState } from "react"
+import Task from "./components/task/Task"
 
 function App() {
-  const sayhello1 = () =>{alert("hello anis")}
+  const [isVisible,SetVisible] = useState(true)
+
+  const toggleVisible=()=> {  SetVisible (!isVisible); console.log(isVisible)}
+
   const steps = ["Enter the task title", "Click on add task"]
-  const tasks = [
+
+  const addTask=(title) => { const newTasks = {id:""+tasks.length +1 , title: title}
+  setTasks(tasks.concat(newTasks))
+  }
+
+  const deleteTask=(id) => { 
+     const newtask = tasks.filter((task)=> task.id != id)
+     setTasks(newtask)
+  
+  }
+ 
+
+  const[tasks, setTasks]= useState(
+  [
     {
       id: "1",
       title: "Learn html",
@@ -32,19 +50,23 @@ function App() {
       date: "05/04/2020",
       description: "Node.js is an open source server environment; Node.js is free"
     }
-  ]
-  const sayHello = () =>{alert("Hello")}
-  const sayHello1 = () =>{alert("Hello.....")}
+  
+])
+  const sayHello = () =>{console.log("Hello")}
+ 
   return (
     <div className="tasks-list" style={{ backgroundColor: "white" }}  >
       To add a task
+      <div><button onClick={toggleVisible}>
+  Activate
+</button></div>
       <ul>
         {steps.map((step) => (
           <li>{step}</li>
         ))}
       </ul>
-      <TaskForm sayHello={sayHello} />
-      <TasksList tasks={tasks} />
+    {isVisible && (<TaskForm addTask={addTask}  sayHello={sayHello} /> )}
+      <TasksList deleteTask={deleteTask}  tasks={tasks} />
     </div>
   )
 }
