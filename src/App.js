@@ -21,8 +21,27 @@ function App() {
      setTasks(newtask)
   
   }
- 
 
+  const updateTask=(id,title,duration) => { 
+    console.log("title.....", title)
+    const newtask = tasks.filter((task)=> task.id == id)
+    const oldtask = tasks.filter((task)=> task.id != id)
+    
+    const list =[
+      {id: id,
+      title: title,
+      duration: duration,
+      type: "test type",
+      date: "2021-10-11",
+      description: newtask.description
+      }
+    ];
+    setTasks(list.concat(oldtask ))
+    console.log("tasks..",tasks)
+ 
+ }
+ 
+ const t="anis"
   const[tasks, setTasks]= useState(
   [
     {
@@ -53,20 +72,19 @@ function App() {
   
 ])
   const sayHello = () =>{console.log("Hello")}
- 
+  const sayHello1 = () =>{alert("Hello anis")}
   return (
     <div className="tasks-list" style={{ backgroundColor: "white" }}  >
       To add a task
-      <div><button onClick={toggleVisible}>
-  Activate
-</button></div>
+      <div><button type="button" className="btn btn-info btn-sm m-1" onClick={toggleVisible}> Activate</button></div>
+      <div><button type="button" className="btn btn-info btn-sm m-1" onClick={sayHello1}> Alert</button></div>
       <ul>
         {steps.map((step) => (
-          <li>{step}</li>
+          <li>{step}</li>  
         ))}
       </ul>
-    {isVisible && (<TaskForm addTask={addTask}  sayHello={sayHello} /> )}
-      <TasksList deleteTask={deleteTask}  tasks={tasks} />
+      {isVisible && (<TaskForm addTask={addTask}  sayHello={sayHello} test="err" /> )}
+       <TasksList deleteTask={deleteTask} updateTask={updateTask}   tasks={tasks} />
     </div>
   )
 }

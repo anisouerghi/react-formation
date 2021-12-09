@@ -15,6 +15,7 @@ export default function TasksList(props) {
           title={task.title}
           duration={task.duration}
           deleteTask={props.deleteTask}
+          updateTask={props.updateTask}
           type={task.type}
           date={task.date}
         >

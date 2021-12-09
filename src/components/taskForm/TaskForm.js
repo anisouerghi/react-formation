@@ -17,11 +17,10 @@ export default function TaskForm(props) {
    } 
 
     return (
-      <div className="task-form">
-        <input  value={title} onChange={(e)=>handleChange(e)} type="text" name="task" id=""  
-        />
+      <div className="task-formca">
+        <input  value={title} onChange={(e)=>handleChange(e)} type="text" name="task" id="" />
         <button onClick={handleAddTask} className="button">{addTask}</button>
-      
+         <div>{props.test}</div>
       </div>
     )
 }
