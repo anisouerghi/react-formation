@@ -103,23 +103,50 @@ const  handleChange=(e)=> {
  } 
  
   //3 eme form
+  // useEffect(() => {
+  //   console.log("test...",searchValue)
+  //   const fetchData = async()=>{
+  //     setLoding(true)
+  //     if(searchValue.length===0){
+  //       setTasks([])
+  //       setLoding(false)
+  //     } else {
+  //       const result = await  fetchTasksByFilter(searchValue)
+  //       console.log("tett",searchValue)
+  //       setTasks(result)
+  //       setLoding(true)
+  //     }
+      
+  //   }
+  //   console.log("use effect....")
+  //   fetchData()
+  // }, [searchValue])
+
+
+// 4eme 
   useEffect(() => {
-    console.log("tett",searchValue)
-    const fetchData = async()=>{
-      setLoding(true)
-      if(searchValue.length===0){
+    let didCancel = false
+    const fetchData = async () => {
+      setLoading(true)
+      if (!searchValue) {
         setTasks([])
         setLoding(false)
       } else {
-        const result = await  fetchTasksByFilter(searchValue)
-        console.log("tett",searchValue)
-        setTasks(result)
-        setLoding(true)
+        const result = await fetchTasks(searchValue)
+        console.log("result: ", didCancel)
+        if (!didCancel) {
+          setTasks(result)
+          setLoding(false)
+        }
       }
-      
     }
-    console.log("use effect....")
+    // console.log("useEffect:", searchValue)
     fetchData()
+
+    return () => {
+      console.log("cleanup: ", searchValue)
+      didCancel = true
+    }
   }, [searchValue])
 
 //   const updateTask=(id,title,duration) => { 

@@ -12,7 +12,7 @@ let tasks = [
   },
   {
     id: 3,
-    title: "Learn node",
+    title: "aa",
     duration: 50,
   },
 ]
