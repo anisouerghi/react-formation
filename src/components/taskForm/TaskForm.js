@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './TaskForm.css'
 import { useState } from "react"
 export default function TaskForm(props) {
@@ -11,6 +11,14 @@ export default function TaskForm(props) {
     setTitle( e.target.value);
     console.log(title)
   } 
+
+// Similar to componentDidMount and componentDidUpdate:
+useEffect(() => {
+  // Update the document title using the browser API
+ console.log("Hello word........")
+});
+
+
 
   const  handleAddTask=()=> {
    props.addTask(title)

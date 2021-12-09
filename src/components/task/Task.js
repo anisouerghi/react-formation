@@ -55,7 +55,6 @@ export default function Task(props) {
         )}
 
    </div>)}
-      
         <form>
           <label>
             Title :
