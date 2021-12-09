@@ -5,11 +5,13 @@ import TasksList from "./components/tasksList/TasksList"
 import { useState } from "react"
 import Task from "./components/task/Task"
 import { fetchTasks } from "./services/tasks.service"
-import { addTask as addTasksFromservice, deleteTask as deleteTasksFromservice, updateTask as updateTaskFromService } from "./services/tasks.service"
+import { addTask as addTasksFromservice, deleteTask as deleteTasksFromservice, fetchTasksByFilter,   updateTask as updateTaskFromService } from "./services/tasks.service"
 function App() {
   const [isVisible,SetVisible] = useState(true)
   const [loding,setLoding] = useState(false)
   const [erreur,setErreur] = useState("erreur")
+  const [searchValue,setSearchValue] = useState("")
+
   const toggleVisible=()=> {  SetVisible (!isVisible); console.log(isVisible)}
 
   const steps = ["Enter the task title", "Click on add task"]
@@ -74,24 +76,51 @@ function App() {
   //   console.log("hello user effect one.......")
   // }, [])
 
+// //2 eme form
+//   useEffect(() => {
+//     const fetchData = async()=>{
+//       setLoding(true)
+//       try {
+//        const result = await fetchTasks() 
+//        setTasks(result)
+//        setLoding(false)
+//        console.log("use effect....sans probleme")
+//       } catch (error) {
+//         console.log("erreur")
+//         setErreur("erreur....")
+//         setLoding(false)
+//       }
+//     }
+//     console.log("use effect....")
+//     fetchData()
+//   }, [])
 
+
+const  handleChange=(e)=> {
+  console.log(e.target.value)
+   setSearchValue( e.target.value);
+   console.log(searchValue)
+ } 
+ 
+  //3 eme form
   useEffect(() => {
+    console.log("tett",searchValue)
     const fetchData = async()=>{
       setLoding(true)
-      try {
-       const result = await fetchTasks() 
-       setTasks(result)
-       setLoding(false)
-       console.log("use effect....sans probleme")
-      } catch (error) {
-        console.log("erreur")
-        setErreur("erreur....")
+      if(searchValue.length===0){
+        setTasks([])
         setLoding(false)
+      } else {
+        const result = await  fetchTasksByFilter(searchValue)
+        console.log("tett",searchValue)
+        setTasks(result)
+        setLoding(true)
       }
+      
     }
     console.log("use effect....")
     fetchData()
-  }, [])
+  }, [searchValue])
 
 //   const updateTask=(id,title,duration) => { 
 //     console.log("title.....", title)
@@ -121,8 +150,8 @@ function App() {
  const t="anis"
  const[tasks, setTasks]= useState([])
 
-  const sayHello = () =>{console.log("Hello")}
-  const sayHello1 = () =>{alert("Hello anis")}
+  const sayHello = () =>{console.log("____")}
+  const sayHello1 = () =>{alert("_____")}
   return (
     <div className="tasks-list" style={{ backgroundColor: "white" }}  >
       To add a task
@@ -133,11 +162,12 @@ function App() {
           <li>{step}</li>  
         ))}
       </ul>
+      <input  value={searchValue} onChange={(e)=>handleChange(e)} type="text" name="task" id="" />
       {loding  && <div>Looding......</div>} 
      
       {!loding  && isVisible && (<TaskForm addTask={addTask}  sayHello={sayHello} /> )}
       {erreur  && isVisible && <div>{erreur}</div>} 
-       <TasksList deleteTask={deleteTask} updateTask={updateTask}   tasks={tasks} />
+       <TasksList deleteTask={deleteTask} updateTask={updateTask}  tasks={tasks} />
     </div>
   )
 }

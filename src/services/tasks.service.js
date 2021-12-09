@@ -26,10 +26,10 @@ export const fetchTasks = async() => {
  // throw new console.error("erreur.......");
   return tasks
 }
-// export const fetchTasksByFilter = (searchValue) => {
-//   // await delay(1000)
-//   return tasks.filter((task) => task.title.includes(searchValue))
-// }
+export const fetchTasksByFilter = (searchValue) => {
+  // await delay(1000)
+  return tasks.filter((task) => task.title.includes(searchValue))
+}
 
 export const fetchTaskById = (id) => {
   // await delay(1000)
